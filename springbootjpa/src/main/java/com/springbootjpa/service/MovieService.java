@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +27,13 @@ public interface MovieService {
 
     List<Movie> findByMovieName(String name);
 
+    List<Movie> findByNameLike(String name);
+
+    List<Movie> findByNameNotLike(String name);
+
+    List<Movie> findByNameAndPrice(String name,Double price);
+
+    List<Movie> findByActionTimeBetween(Date beginDate, Date endDate);
     /* 全部查询 *//*
     Page<Movie> findAll(Pageable pageable);
     *//* 根据多种信息 查询模糊用户*//*

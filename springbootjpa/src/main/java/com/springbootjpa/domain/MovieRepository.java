@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,6 +20,16 @@ public interface MovieRepository extends JpaRepository<Movie,Integer>{
     //                                      :name 是下面 传入参数
     @Query(value = "select m from Movie m where m.name=:name")
     List<Movie> findByMovieName(@Param("name")String name);
+
+    // 模式查询 包含 name的数据
+    List<Movie> findByNameLike(String name);
+    // 模式查询 不包含 name的数据
+    List<Movie> findByNameNotLike(String name);
+
+    // 条件查询不包含 name 并 price 价格相等的电影
+    List<Movie> findByNameAndPrice(String name,Double price);
+
+    List<Movie> findByActionTimeBetween(Date beginDate,Date endDate);
    /* @Query("select id,name,price,action_time  from Movie u where u.name=:name")
     List<Movie> findByName1(@Param("name") String name);
 

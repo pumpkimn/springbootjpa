@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,6 +49,26 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public List<Movie> findByMovieName(String name) {
         return movieRepository.findByMovieName(name);
+    }
+
+    @Override
+    public List<Movie> findByNameLike(String name) {
+        return movieRepository.findByNameLike(name);
+    }
+
+    @Override
+    public List<Movie> findByNameNotLike(String name) {
+        return movieRepository.findByNameNotLike(name);
+    }
+
+    @Override
+    public List<Movie> findByNameAndPrice(String name, Double price) {
+        return movieRepository.findByNameAndPrice(name,price);
+    }
+
+    @Override
+    public List<Movie> findByActionTimeBetween(Date beginDate, Date endDate) {
+        return movieRepository.findByActionTimeBetween(beginDate,endDate);
     }
 
 

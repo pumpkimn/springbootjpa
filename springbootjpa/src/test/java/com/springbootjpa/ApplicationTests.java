@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -62,5 +64,43 @@ public class ApplicationTests {
 			System.out.println(movie.getName()+" "+movie.getPrice()+" "+movie.getActionTime());
 		}
 	}
+
+	@Test
+	public void findByNameLike() {
+		for (Movie movie:movieService.findByNameLike("%头%")){
+			System.out.println(movie.getName()+" "+movie.getPrice()+" "+movie.getActionTime());
+		}
+	}
+
+	@Test
+	public void findByNameNotLike() {
+		for (Movie movie:movieService.findByNameNotLike("%头%")){
+			System.out.println(movie.getName()+" "+movie.getPrice()+" "+movie.getActionTime());
+		}
+	}
+
+	@Test
+	public void findByNameAndPrice() {
+		for (Movie movie:movieService.findByNameAndPrice("%厉%",888d)){
+			System.out.println(movie.getName()+" "+movie.getPrice()+" "+movie.getActionTime());
+		}
+	}
+
+	@Test
+	public void findByActionTimeBetween() {
+		Date beginDate =new Date();
+		Date endDate = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		try {
+			beginDate = sdf.parse("2018-04-08 00:00:00");
+			endDate = sdf.parse("2018-04-10 23:59:59");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		for (Movie movie:movieService.findByActionTimeBetween(beginDate,endDate)){
+			System.out.println(movie.getName()+" "+movie.getPrice()+" "+movie.getActionTime());
+		}
+	}
+
 }
 
